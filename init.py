@@ -1,16 +1,15 @@
-# /// script
+﻿# /// script
 # requires-python = ">=3.10"
 # dependencies = ["httpx"]
 # ///
 """
-egenesis init script — pulls the egenesis scaffold template into the current directory.
+egenesis init script â€” pulls the egenesis scaffold template into the current directory.
 Run with:  uv run https://raw.githubusercontent.com/ethavais/egenesis/main/init.py
 """
 
 import httpx
 import io
 import zipfile
-import sys
 from pathlib import Path
 
 REPO = "ethavais/egenesis"
@@ -46,7 +45,8 @@ def main():
     print(f">>> Done! {pulled} files pulled.")
     if skipped:
         print(f">>> Skipped {len(skipped)} existing files: {', '.join(skipped[:5])}{'...' if len(skipped) > 5 else ''}")
-    print(f">>> Next: Ctrl+H in VS Code → replace {{{{ProjectName}}}} with your project name.")
+    print(">>> Next: Ctrl+H in VS Code -> replace {{ProjectName}} with your project name.")
 
 if __name__ == "__main__":
     main()
+

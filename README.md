@@ -5,7 +5,7 @@
 ## Usage
 
 ```powershell
-npx degit ivais/egenesis <folder-name>
+npx degit ethavais/egenesis <folder-name>
 ```
 
 Then open in VS Code and **Ctrl+H → Replace All** (Match Case on):

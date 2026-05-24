@@ -58,8 +58,6 @@ Replace: YourProjectName   # PascalCase, e.g. api-hub → ApiHub
 - `dotnet.defaultSolution` — points the .NET extension to the right `.slnx` file. Replace `{{ProjectName}}` so IntelliSense and test discovery work without manual setup.
 - `files.exclude` — hides `devops/` and `Directory.Build.props` from VS Code Explorer. Coders only see `src/`. DevOps files are still fully accessible from the terminal and CI.
 
-> **Note:** VS Code may warn *"This setting cannot be applied in this workspace"* if the project folder is not the direct workspace root. Open the project folder directly (`code .` from inside it) and the warning disappears.
-
 ## Placeholders
 
 All `{{ProjectName}}` occurrences across these files:

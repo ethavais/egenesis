@@ -58,5 +58,5 @@ coverage/
 *.log
 logs/
 
-# code-review-graph (local graph cache — never commit)
+# code-review-graph (local graph cache)
 .code-review-graph/

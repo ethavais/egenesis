@@ -1,0 +1,21 @@
+{
+    "metadata": {
+        "warning": "Comments are not permitted in JSON. Use JSON keys for notes instead of comments.",
+        "reference": "Illustrative agent configuration. See https://github.com/tirth8205/code-review-graph for an example. Replace or extend this setup for the actual project.",
+        "language": "English"
+    },
+    "agents": [
+        {
+            "id": "code-reviewer",
+            "name": "Code Review Agent",
+            "description": "Reviews code changes, suggests improvements, and enforces team conventions for {{ProjectName}}.",
+            "model": "claude-sonnet-4-5",
+            "instructions": "You are a senior .NET developer reviewing code for the {{ProjectName}} project. Follow the conventions in .editorconfig and Directory.Build.props. Flag any violation of TreatWarningsAsErrors rules. Keep feedback concise and actionable.",
+            "tools": [
+                "read_file",
+                "grep_search",
+                "list_dir"
+            ]
+        }
+    ]
+}

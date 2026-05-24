@@ -1,0 +1,59 @@
+# Build outputs
+artifacts/
+bin/
+obj/
+
+# VS Code
+.vscode/**
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/agents.json
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.assets.json
+
+# .NET
+*.dll
+*.exe
+!data/*.exe
+*.pdb
+*.cache
+*.ilk
+*.map
+*.exp
+*.lib
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets & environment
+.env
+.env.local
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+secrets.json
+
+# Test results
+TestResults/
+coverage/
+*.trx
+*.coveragexml
+
+# Logs
+*.log
+logs/

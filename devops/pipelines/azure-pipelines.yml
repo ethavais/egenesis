@@ -1,0 +1,24 @@
+# Azure DevOps Pipeline — {{ProjectName}}
+# Skeleton template: chỉnh lại theo nhu cầu thực tế
+
+trigger:
+  - main
+
+pool:
+  vmImage: "windows-latest"
+
+variables:
+  buildConfiguration: "Release"
+  projectName: "{{ProjectName}}"
+
+stages:
+  - stage: Build
+    displayName: "Build"
+    jobs:
+      - job: BuildJob
+        displayName: "Build & Test"
+        steps:
+          - template: template-build.yml
+            parameters:
+              projectName: $(projectName)
+              buildConfiguration: $(buildConfiguration)

@@ -1,0 +1,4 @@
+{
+    "dotnet.defaultSolution": "TSql2PgSql.slnx",
+    "dotnet.automaticallyCreateSolutionInWorkspace": false
+}

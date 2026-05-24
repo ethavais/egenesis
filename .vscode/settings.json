@@ -1,0 +1,8 @@
+{
+    "dotnet.defaultSolution": "{{ProjectName}}.slnx",
+    "files.exclude": {
+        "**/.git": false,
+        "devops": false,
+        "Directory.Build.props": false
+    }
+}

@@ -1,0 +1,35 @@
+# Reusable build template
+# Skeleton: chỉnh lại theo nhu cầu thực tế
+
+parameters:
+  - name: projectName
+    type: string
+  - name: buildConfiguration
+    type: string
+    default: "Release"
+
+steps:
+  - task: UseDotNet@2
+    displayName: "Use .NET SDK"
+    inputs:
+      useGlobalJson: true
+
+  - task: DotNetCoreCLI@2
+    displayName: "Restore"
+    inputs:
+      command: "restore"
+      projects: "src/${{ parameters.projectName }}.App/${{ parameters.projectName }}.App.csproj"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Build"
+    inputs:
+      command: "build"
+      projects: "src/${{ parameters.projectName }}.App/${{ parameters.projectName }}.App.csproj"
+      arguments: "--configuration ${{ parameters.buildConfiguration }} --no-restore"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Test"
+    inputs:
+      command: "test"
+      projects: "src/${{ parameters.projectName }}.Tests/${{ parameters.projectName }}.Tests.csproj"
+      arguments: "--configuration ${{ parameters.buildConfiguration }} --no-build"

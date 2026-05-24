@@ -6,8 +6,10 @@
 
 ```powershell
 cd <your-project-folder>
-npx degit ethavais/egenesis
+uv run https://raw.githubusercontent.com/ethavais/egenesis/main/init.py
 ```
+
+> Requires [uv](https://docs.astral.sh/uv/). Fallback if no uv: `npx degit ethavais/egenesis`
 
 Then open in VS Code and **Ctrl+H → Replace All** (Match Case on):
 

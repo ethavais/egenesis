@@ -68,3 +68,5 @@ logs/
 .cursor/
 .mcp.json
 .vscode/mcp.json
+.cursorrules
+AGENTS.md

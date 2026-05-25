@@ -36,3 +36,6 @@ dotnet_diagnostic.IDE0290.severity = warning
 
 # SYSLIB1045: Use GeneratedRegexAttribute
 dotnet_diagnostic.SYSLIB1045.severity = warning
+
+# CA1861: Prefer 'static readonly' fields repeatedly
+dotnet_diagnostic.CA1861.severity = warning

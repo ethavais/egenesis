@@ -3,6 +3,9 @@ artifacts/
 bin/
 obj/
 
+# Workspace
+egenesis.code-workspace
+
 # VS Code
 .vscode/**
 !.vscode/settings.json
@@ -60,3 +63,8 @@ logs/
 
 # code-review-graph (local graph cache)
 .code-review-graph/
+
+# User-specific tool and MCP configurations
+.cursor/
+.mcp.json
+.vscode/mcp.json

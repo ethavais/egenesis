@@ -15,12 +15,14 @@
         },
         {
             "label": "build",
-            "dependsOn": ["clean-usings"],
+            "dependsOn": [
+                "clean-usings"
+            ],
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/{{ProjectName}}.App/{{ProjectName}}.App.csproj",
+                "${workspaceFolder}/src/{{ProjectEgenesisName}}.App/{{ProjectEgenesisName}}.App.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +34,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/{{ProjectName}}.App/{{ProjectName}}.App.csproj",
+                "${workspaceFolder}/src/{{ProjectEgenesisName}}.App/{{ProjectEgenesisName}}.App.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -46,7 +48,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/{{ProjectName}}.App/{{ProjectName}}.App.csproj"
+                "${workspaceFolder}/src/{{ProjectEgenesisName}}.App/{{ProjectEgenesisName}}.App.csproj"
             ],
             "problemMatcher": "$msCompile"
         },

@@ -5,18 +5,17 @@
 ## Usage
 
 ```powershell
+npx degit ethavais/egenesis <your-project-folder>
 cd <your-project-folder>
-uv run https://raw.githubusercontent.com/ethavais/egenesis/main/init.py
 ```
 
-> Requires [uv](https://docs.astral.sh/uv/). Fallback if no uv: `npx degit ethavais/egenesis`
+Then run the init script (replaces `{{ProjectEgenesisName}}` in all config files automatically):
 
-Then open in VS Code and **Ctrl+H → Replace All** (Match Case on):
+```powershell
+.\devops\scripts\init-project.ps1 -ProjectName YourProjectName
+```
 
-```
-Find:    {{ProjectName}}
-Replace: YourProjectName   # PascalCase, e.g. api-hub → ApiHub
-```
+> `YourProjectName` must be PascalCase, e.g. `ApiHub`
 
 ## Structure
 
@@ -49,7 +48,7 @@ Replace: YourProjectName   # PascalCase, e.g. api-hub → ApiHub
 
 ```json
 {
-    "dotnet.defaultSolution": "{{ProjectName}}.slnx",
+    "dotnet.defaultSolution": "{{ProjectEgenesisName}}.slnx",
     "files.exclude": {
         "devops": true,
         "Directory.Build.props": true
@@ -57,12 +56,12 @@ Replace: YourProjectName   # PascalCase, e.g. api-hub → ApiHub
 }
 ```
 
-- `dotnet.defaultSolution` — points the .NET extension to the right `.slnx` file. Replace `{{ProjectName}}` so IntelliSense and test discovery work without manual setup.
+- `dotnet.defaultSolution` — points the .NET extension to the right `.slnx` file. Replace `{{ProjectEgenesisName}}` so IntelliSense and test discovery work without manual setup.
 - `files.exclude` — hides `devops/` and `Directory.Build.props` from VS Code Explorer. Coders only see `src/`. DevOps files are still fully accessible from the terminal and CI.
 
 ## Placeholders
 
-All `{{ProjectName}}` occurrences across these files:
+All `{{ProjectEgenesisName}}` occurrences are handled automatically by `devops/scripts/init-project.ps1`:
 
 | File | Where |
 |---|---|

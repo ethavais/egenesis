@@ -1,4 +1,4 @@
-# Azure DevOps Pipeline — {{ProjectName}}
+# Azure DevOps Pipeline — {{ProjectEgenesisName}}
 # Skeleton template: chỉnh lại theo nhu cầu thực tế
 
 trigger:
@@ -9,7 +9,7 @@ pool:
 
 variables:
   buildConfiguration: "Release"
-  projectName: "{{ProjectName}}"
+  projectName: "{{ProjectEgenesisName}}"
 
 stages:
   - stage: Build

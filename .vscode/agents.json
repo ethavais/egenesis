@@ -8,9 +8,9 @@
         {
             "id": "code-reviewer",
             "name": "Code Review Agent",
-            "description": "Reviews code changes, suggests improvements, and enforces team conventions for {{ProjectName}}.",
+            "description": "Reviews code changes, suggests improvements, and enforces team conventions for {{ProjectEgenesisName}}.",
             "model": "claude-sonnet-4-5",
-            "instructions": "You are a senior .NET developer reviewing code for the {{ProjectName}} project. Follow the conventions in .editorconfig and Directory.Build.props. Flag any violation of TreatWarningsAsErrors rules. Keep feedback concise and actionable.",
+            "instructions": "You are a senior .NET developer reviewing code for the {{ProjectEgenesisName}} project. Follow the conventions in .editorconfig and Directory.Build.props. Flag any violation of TreatWarningsAsErrors rules. Keep feedback concise and actionable.",
             "tools": [
                 "read_file",
                 "grep_search",

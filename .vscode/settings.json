@@ -1,8 +1,16 @@
 {
-    "dotnet.defaultSolution": "{{ProjectName}}.slnx",
+    "dotnet.defaultSolution": "{{ProjectEgenesisName}}.slnx",
+    "editor.foldingImportsByDefault": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
     "files.exclude": {
         "**/.git": false,
         "devops": false,
-        "Directory.Build.props": false
+        "Directory.Build.props": false,
+        "**/*Presentation": false,
+        "**/*Application": false,
+        "**/*Infrastructure": false,
+        "**/*Domain": false
     }
 }

@@ -5,7 +5,10 @@
 ## Usage
 
 ```powershell
-npx degit ethavais/egenesis <your-project-folder>
+npx -y degit ethavais/egenesis
+# OR
+npx degit ethavais/egenesis
+
 cd <your-project-folder>
 ```
 

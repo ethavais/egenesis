@@ -1,6 +1,7 @@
 root = true
 
 [*.cs]
+# --- IDE Rules (Code Style & Simplifications) ---
 # IDE0001: Simplify name
 dotnet_diagnostic.IDE0001.severity = warning
 
@@ -34,8 +35,18 @@ dotnet_diagnostic.IDE0270.severity = warning
 # IDE0290: Use primary constructor
 dotnet_diagnostic.IDE0290.severity = warning
 
-# SYSLIB1045: Use GeneratedRegexAttribute
-dotnet_diagnostic.SYSLIB1045.severity = warning
+
+# --- CA Rules (Performance & Design) ---
+# CA1834: Use 'StringBuilder.Append(char)' instead of 'StringBuilder.Append(string)' when the input is a constant unit string
+dotnet_diagnostic.CA1834.severity = warning
+
+# CA1846: Prefer 'AsSpan' over 'Substring' when span-based overloads are available
+dotnet_diagnostic.CA1846.severity = warning
 
 # CA1861: Prefer 'static readonly' fields repeatedly
 dotnet_diagnostic.CA1861.severity = warning
+
+
+# --- SYSLIB Rules (Source Generators) ---
+# SYSLIB1045: Use GeneratedRegexAttribute
+dotnet_diagnostic.SYSLIB1045.severity = warning

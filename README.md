@@ -73,5 +73,4 @@ All `{{ProjectEgenesisName}}` occurrences are handled automatically by `devops/s
 | `.vscode/tasks.json` | `.csproj` paths |
 | `.vscode/agents.json` | `name`, `instructions` |
 | `devops/scripts/build.ps1` | project path, `AssemblyName` |
-| `devops/scripts/cleanup-usings.ps1` | `.slnx` filename |
 | `devops/pipelines/azure-pipelines.yml` | `projectName` variable |

@@ -28,7 +28,6 @@ $targets = @(
     "$root/.vscode/tasks.json",
     "$root/.vscode/agents.json",
     "$root/devops/scripts/build.ps1",
-    "$root/devops/scripts/cleanup-usings.ps1",
     "$root/devops/pipelines/azure-pipelines.yml"
 )
 

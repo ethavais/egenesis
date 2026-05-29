@@ -3,11 +3,12 @@
 
 $ErrorActionPreference = "Stop"
 $projectDir = Split-Path -Parent $MyInvocation.MyCommand.Path | Split-Path -Parent | Split-Path -Parent
-$sln = Join-Path $projectDir "{{ProjectEgenesisName}}.slnx"
 
-if (-not (Test-Path -LiteralPath $sln)) {
-    throw "Solution not found: {{ProjectEgenesisName}}.slnx — make sure you replaced {{ProjectEgenesisName}} with the actual project name."
+$slnFiles = Get-ChildItem -Path $projectDir -Filter "*.slnx" -File
+if ($slnFiles.Count -eq 0) {
+    throw "No .slnx solution file found in: $projectDir. Run 'dotnet new sln' first."
 }
+$sln = $slnFiles[0].FullName
 
 Write-Host ">>> Scanning and removing unused usings (workspace: $sln)..." -ForegroundColor Cyan
 

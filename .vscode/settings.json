@@ -4,6 +4,9 @@
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit"
     },
+    "dotnet.backgroundAnalysis.analyzerDiagnosticsScope": "none",
+    "dotnet.automaticallyCreateSolutionInWorkspace": false,
+    "csharp.suppressDotnetInstallWarning": true,
     "files.exclude": {
         "**/.git": false,
         "devops": false,

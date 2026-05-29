@@ -15,9 +15,6 @@
         },
         {
             "label": "build",
-            "dependsOn": [
-                "clean-usings"
-            ],
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -26,7 +23,11 @@
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "publish",

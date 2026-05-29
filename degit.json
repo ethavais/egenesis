@@ -1,6 +1,6 @@
 [
   {
     "action": "remove",
-    "files": ["degit.json", "README.md"]
+    "files": ["README.md"]
   }
 ]

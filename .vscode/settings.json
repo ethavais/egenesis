@@ -11,11 +11,11 @@
         "**/.git": false,
         "**/.code-review-graph": false,
         "**/.ecc": false,
-        "devops": false,
-        "Directory.Build.props": false,
         "**/*Presentation": false,
         "**/*Application": false,
         "**/*Infrastructure": false,
-        "**/*Domain": false
+        "**/*Domain": false,
+        "devops": false,
+        "Directory.Build.props": false
     }
 }

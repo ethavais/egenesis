@@ -3,6 +3,12 @@
 > **This is the FIRST file an AI agent should read after cloning this repository.**
 > It contains step-by-step instructions for the AI to automatically set up the entire development environment for the user.
 
+**Important Note for Cloning:**
+To use this AI Harness version of the template, you must clone the `iris` branch using degit:
+```bash
+npx degit ethavais/egenesis#iris my-project
+```
+
 ---
 
 ## For AI Agents: Auto-Setup Instructions
@@ -17,7 +23,15 @@ Read `AGENTS.md` in the project root. This file defines your coding standards, a
 
 Read `.ecc/EVOLUTION.md`. This contains lessons learned from past failures. Every rule in that file is **non-negotiable** — never repeat a documented mistake.
 
-### Step 3: Initialize Project Name
+### Step 3: IDE Auto-Configuration
+
+The `.ecc/ide/` folder contains pre-configured settings for various AI IDEs (`.cursor`, `.claude`, `.gemini`, `.zed`, etc.).
+Identify which IDE you are currently running in. Copy the corresponding folder to the project root. For example, if running in Cursor:
+```powershell
+Copy-Item -Recurse -Force ".\.ecc\ide\.cursor" ".\"
+```
+
+### Step 4: Initialize Project Name
 
 Ask the user for their desired project name (PascalCase, e.g. `ApiHub` or `PaymentService`), then run:
 
@@ -70,6 +84,7 @@ git commit -m "chore: initial project scaffold"
 Tell the user:
 - Project name has been set
 - .NET solution and web API project have been created
+- IDE configuration has been extracted from `.ecc/ide`
 - code-review-graph MCP is installed and the knowledge graph is built
 - Show the `code-review-graph status` output as proof
 - This `INIT.md` file can now be deleted

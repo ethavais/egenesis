@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>code-review-graph — LLM Reference</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; color: #333; }
+        h1, h2, h3 { color: #2c3e50; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+        code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 85%; background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+        .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+        .alert-info { color: #31708f; background-color: #d9edf7; border-color: #bce8f1; }
+        .alert-warning { color: #8a6d3b; background-color: #fcf8e3; border-color: #faebcc; }
+        .alert-danger { color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 8px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f5f5f5; }
+    </style>
+</head>
+<body>
+    <h1>code-review-graph: MCP Documentation for LLMs</h1>
+
+    <div class="alert alert-info">
+        <strong>For AI Agents (LLMs):</strong> This document explains how to interact with the code-review-graph MCP server. Use these tools <em>before</em> attempting naive greps or full-file reads to save context tokens and gain structural awareness.
+    </div>
+
+    <h2>1. What is code-review-graph?</h2>
+    <p>It builds an AST (Abstract Syntax Tree) using Tree-sitter and stores a graph of nodes (functions, classes) and edges (calls, imports) in SQLite. When you request a code review or impact analysis, it computes the <strong>blast radius</strong> of the changes so you only read what is strictly necessary.</p>
+
+    <h2>2. When to Use the Graph</h2>
+    <ul>
+        <li><strong>Code Review:</strong> Use <code>detect_changes</code> + <code>get_review_context</code> to see what changed and only the surrounding context/callers.</li>
+        <li><strong>Impact Analysis:</strong> Use <code>get_impact_radius</code> to understand what a file change affects down the line.</li>
+        <li><strong>Code Exploration:</strong> Use <code>semantic_search_nodes</code> or <code>query_graph</code> to find code locations rather than using <code>grep_search</code>.</li>
+        <li><strong>Architecture Understanding:</strong> Use <code>get_architecture_overview</code> or <code>list_communities</code>.</li>
+    </ul>
+
+    <h2>3. Key MCP Tools Reference</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tool Name</th>
+                <th>Description</th>
+                <th>Common Usage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>detect_changes</code></td>
+                <td>Analyzes uncommitted changes and returns risk scores &amp; impact paths.</td>
+                <td>Run this first when asked to "review the current changes".</td>
+            </tr>
+            <tr>
+                <td><code>get_review_context</code></td>
+                <td>Gets the absolute minimum source snippets needed to review specific files.</td>
+                <td>Run this after <code>detect_changes</code> to actually read the code.</td>
+            </tr>
+            <tr>
+                <td><code>get_impact_radius</code></td>
+                <td>Finds all callers, tests, and dependents affected by a node or file.</td>
+                <td>Run this when a user asks "what happens if I change X?"</td>
+            </tr>
+            <tr>
+                <td><code>query_graph</code></td>
+                <td>Query relationships (e.g. <code>callers_of</code>, <code>callees_of</code>, <code>imports_of</code>, <code>tests_for</code>).</td>
+                <td>Run this to trace dependencies without blind grepping.</td>
+            </tr>
+            <tr>
+                <td><code>semantic_search_nodes</code></td>
+                <td>Full-text search (FTS5) for functions or classes.</td>
+                <td>Run this to find where a specific logic is defined.</td>
+            </tr>
+            <tr>
+                <td><code>get_architecture_overview</code></td>
+                <td>High-level view of the codebase structure and module clusters.</td>
+                <td>Run this when starting work on an unfamiliar repo or planning architecture.</td>
+            </tr>
+            <tr>
+                <td><code>get_affected_flows</code></td>
+                <td>Finds which execution paths (HTTP routes, CLI commands, etc.) are impacted.</td>
+                <td>Run this before a deploy to understand risk.</td>
+            </tr>
+            <tr>
+                <td><code>refactor_tool</code></td>
+                <td>Planning renames, finding dead code, analyzing coupling.</td>
+                <td>Run this before major refactoring work.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. CRITICAL Prerequisites &amp; Gotchas</h2>
+
+    <div class="alert alert-danger">
+        <strong>CRITICAL — Git Tracking Required:</strong> <code>code-review-graph</code> ONLY indexes files that are tracked by Git.
+        If you create new files, you <strong>MUST</strong> run <code>git add &lt;files&gt;</code> BEFORE running <code>code-review-graph build</code> or <code>code-review-graph update</code>.
+        Untracked files are completely invisible to the graph. This is by design (to exclude node_modules, bin, obj, etc.).
+    </div>
+
+    <div class="alert alert-danger">
+        <strong>CRITICAL — Always Verify After Build:</strong> After running <code>build</code> or <code>update</code>,
+        you MUST run <code>code-review-graph status</code> and confirm that the Nodes, Edges, and Files counts
+        actually changed. If the numbers didn't change, something went wrong (usually: files not git-tracked).
+        <strong>Never tell the user "it's working" without checking status output.</strong>
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>Database Location:</strong> The <code>.code-review-graph/</code> directory MUST remain at the Git repository root.
+        Moving it to a subdirectory will cause the tool to create a fresh empty database. Do not relocate it.
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>After Install Commands:</strong> <code>code-review-graph install</code> may auto-generate files like <code>GEMINI.md</code>, <code>CLAUDE.md</code>, etc.
+        If you already have a central instructions file (e.g. <code>AGENTS.md</code>), delete the auto-generated duplicates immediately.
+        Keep ONE source of truth.
+    </div>
+
+    <h2>5. Standard Workflow</h2>
+    <pre><code># Step 1: Stage any new/modified files to Git
+git add &lt;new-or-modified-files&gt;
+
+# Step 2: Build or update the graph
+code-review-graph build          # Full rebuild (use after major changes)
+code-review-graph update         # Incremental (use for small changes)
+
+# Step 3: VERIFY it worked
+code-review-graph status         # Check Nodes/Edges/Files counts
+
+# Step 4: Use MCP tools in your AI session
+# The MCP server is auto-configured for Antigravity.
+# Tools like detect_changes, semantic_search_nodes, etc. are available.</code></pre>
+
+    <h2>6. CLI Commands Quick Reference</h2>
+    <table>
+        <thead>
+            <tr><th>Command</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>code-review-graph build</code></td><td>Full re-parse of all tracked files</td></tr>
+            <tr><td><code>code-review-graph update</code></td><td>Incremental update (only changed files)</td></tr>
+            <tr><td><code>code-review-graph status</code></td><td>Show node/edge/file counts and last update time</td></tr>
+            <tr><td><code>code-review-graph visualize</code></td><td>Generate interactive HTML graph in browser</td></tr>
+            <tr><td><code>code-review-graph watch</code></td><td>Auto-update graph on file changes</td></tr>
+            <tr><td><code>code-review-graph detect-changes</code></td><td>CLI-based change impact analysis</td></tr>
+            <tr><td><code>code-review-graph install</code></td><td>Configure MCP for AI platforms</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Rule of Thumb:</strong> If you are about to use <code>read_file</code> on a massive file or <code>grep_search</code> across the workspace, STOP. Use the graph instead to find exact locations and blast radius.
+    </div>
+</body>
+</html>

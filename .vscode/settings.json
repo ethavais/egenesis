@@ -9,6 +9,8 @@
     "csharp.suppressDotnetInstallWarning": true,
     "files.exclude": {
         "**/.git": false,
+        "**/.code-review-graph": true,
+        "**/.ecc": false,
         "devops": false,
         "Directory.Build.props": false,
         "**/*Presentation": false,
